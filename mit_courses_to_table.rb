@@ -30,7 +30,16 @@ def get_level(n)
   end
 end
 
-def get_lectures(n)
-  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) (\([a-zA-Z\d-]*\))/)
+def get_lecture_times(n)
+  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   lectures_match_data[1] unless lectures_match_data.nil?
 end
+
+def get_lecture_room(n)
+  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+  lectures_match_data[2] unless lectures_match_data.nil?
+end 
+
+puts get_title(9)
+puts get_lecture_times(9)
+puts get_lecture_room(9)
