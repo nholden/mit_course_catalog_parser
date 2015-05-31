@@ -17,11 +17,8 @@ def get_instructors(n)
 end
 
 def get_units(n)
-  if !@courses[n].text.match(/^Units: (.*)$/).nil?
-    @courses[n].text.match(/^Units: (.*)$/)[1]
-  else
-    "Arranged"
-  end
+  units_match_data = @courses[n].text.match(/^Units: (.*)$/)
+  units_match_data[1] unless units_match_data.nil?
 end
 
 def get_level(n)
@@ -31,4 +28,9 @@ def get_level(n)
   elsif images.match(/grad.gif/)
     "G"
   end
+end
+
+def get_lectures(n)
+  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) (\([a-zA-Z\d-]*\))/)
+  lectures_match_data[1] unless lectures_match_data.nil?
 end
