@@ -31,15 +31,31 @@ def get_level(n)
 end
 
 def get_lecture_times(n)
-  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-  lectures_match_data[1] unless lectures_match_data.nil?
+  lecture_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+  lecture_match_data[1] unless lecture_match_data.nil?
 end
 
 def get_lecture_room(n)
-  lectures_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-  lectures_match_data[2] unless lectures_match_data.nil?
+  lecture_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+  lecture_match_data[2] unless lecture_match_data.nil?
 end 
 
-puts get_title(9)
-puts get_lecture_times(9)
-puts get_lecture_room(9)
+def get_lab_times(n)
+  two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+  if two_labs_match_data.nil?
+    lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    lab_match_data[1] unless lab_match_data.nil?
+  else
+    [two_labs_match_data[1], two_labs_match_data[3]]
+  end
+end
+
+def get_lab_room(n)
+  two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+  if two_labs_match_data.nil?
+    lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    lab_match_data[2] unless lab_match_data.nil?
+  else
+    [two_labs_match_data[2], two_labs_match_data[4]]
+  end
+end
