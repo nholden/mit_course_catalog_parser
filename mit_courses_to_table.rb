@@ -32,6 +32,42 @@ def get_level(n)
   end
 end
 
+def is_spring?(n)
+  images = @courses[n].xpath("img//@src").to_s
+  if images.match(/spring.gif/)
+    true
+  else
+    false
+  end
+end
+
+def is_fall?(n)
+  images = @courses[n].xpath("img//@src").to_s
+  if images.match(/fall.gif/)
+    true
+  else
+    false
+  end
+end
+
+def is_iap?(n)
+  images = @courses[n].xpath("img//@src").to_s
+  if images.match(/iap.gif/)
+    true
+  else
+    false
+  end
+end
+
+def is_summer?(n)
+  images = @courses[n].xpath("img//@src").to_s
+  if images.match(/summer.gif/)
+    true
+  else
+    false
+  end
+end
+
 def get_lecture_times(n)
   lecture_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   lecture_match_data[1] unless lecture_match_data.nil?
