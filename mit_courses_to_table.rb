@@ -42,6 +42,14 @@ def get_lecture_room(n)
   lecture_match_data[2] unless lecture_match_data.nil?
 end 
 
+def is_lecture?(n)
+  if get_lecture_times(n).nil? 
+    false
+  else
+    true
+  end
+end
+
 def get_lab_times(n)
   two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   if two_labs_match_data.nil?
