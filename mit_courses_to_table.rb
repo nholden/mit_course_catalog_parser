@@ -17,5 +17,18 @@ def get_instructors(n)
 end
 
 def get_units(n)
-  @courses[n].text.match(/^Units: (.*)$/)[1]
+  if !@courses[n].text.match(/^Units: (.*)$/).nil?
+    @courses[n].text.match(/^Units: (.*)$/)[1]
+  else
+    "Arranged"
+  end
+end
+
+def get_level(n)
+  images = @courses[n].xpath("img//@src").to_s
+  if images.match(/under.gif/)
+    "U"
+  elsif images.match(/grad.gif/)
+    "G"
+  end
 end
