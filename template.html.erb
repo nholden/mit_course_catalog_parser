@@ -16,8 +16,20 @@
         <td><%= get_level(index) %></td>
         <td><%= get_title(index) %></td>
         <td>
-          <% if is_lecture?(index) %>
-            Lecture: <%= get_lecture_times(index) %> (<%= get_lecture_room(index) %>) <br />
+          <% if is_lecture?(index) %><p>Lecture: 
+            <%= get_lecture_times(index) %> (<%= get_lecture_room(index) %>)</p>
+          <% end %>
+          <% if is_lab?(index) %><p>Lab: 
+            <% get_lab_times(index).each_with_index do |time, lab_index| %>
+              <%= time %> (<%= get_lab_room(index)[lab_index] %>) 
+              <%= "or" unless time == get_lab_times(index)[-1] %>
+            <% end %></p>
+          <% end %>
+          <% if is_recitation?(index) %><p>Recitation: 
+            <% get_recitation_times(index).each_with_index do |time, recitation_index| %>
+              <%= time %> (<%= get_recitation_room(index)[recitation_index] %>) 
+              <%= "or" unless time == get_recitation_times(index)[-1] %>
+            <% end %></p>
           <% end %>
         </td>
         <td><%= get_instructors(index) %></td>

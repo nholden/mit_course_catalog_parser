@@ -54,7 +54,7 @@ def get_lab_times(n)
   two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   if two_labs_match_data.nil?
     lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-    lab_match_data[1] unless lab_match_data.nil?
+    [lab_match_data[1]] unless lab_match_data.nil?
   else
     [two_labs_match_data[1], two_labs_match_data[3]]
   end
@@ -64,9 +64,17 @@ def get_lab_room(n)
   two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   if two_labs_match_data.nil?
     lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-    lab_match_data[2] unless lab_match_data.nil?
+    [lab_match_data[2]] unless lab_match_data.nil?
   else
     [two_labs_match_data[2], two_labs_match_data[4]]
+  end
+end
+
+def is_lab?(n)
+  if get_lab_times(n).nil? 
+    false
+  else
+    true
   end
 end
 
@@ -74,7 +82,7 @@ def get_recitation_times(n)
   two_recitations_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   if two_recitations_match_data.nil?
     recitation_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-    recitation_match_data[1] unless recitation_match_data.nil?
+    [recitation_match_data[1]] unless recitation_match_data.nil?
   else
     [two_recitations_match_data[1], two_recitations_match_data[3]]
   end
@@ -84,9 +92,17 @@ def get_recitation_room(n)
   two_recitations_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
   if two_recitations_match_data.nil?
     recitation_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
-    recitation_match_data[2] unless recitation_match_data.nil?
+    [recitation_match_data[2]] unless recitation_match_data.nil?
   else
     [two_recitations_match_data[2], two_recitations_match_data[4]]
+  end
+end
+
+def is_recitation?(n)
+  if get_recitation_times(n).nil? 
+    false
+  else
+    true
   end
 end
 
