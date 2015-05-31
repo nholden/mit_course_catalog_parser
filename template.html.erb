@@ -1,0 +1,26 @@
+<html>
+  <body>
+    <table>
+      <tr>
+        <th>Subject</td>
+        <th>Units</td>
+        <th>Level</td>
+        <th>Title</td>
+        <th>Hours</td>
+        <th>Room</td>
+        <th>Instructors</td>
+      </th>
+      <% @courses.each_with_index do |course, index| %>
+      <tr>
+        <td><%= get_num(index) %></td>
+        <td><%= get_units(index) %></td>
+        <td><%= get_level(index) %></td>
+        <td><%= get_title(index) %></td>
+        <td><%= get_lecture_times(index) %></td>
+        <td><%= get_lecture_room(index) %></td>
+        <td><%= get_instructors(index) %></td>
+      </tr>
+      <% end %>
+    </table>
+  </body>
+</html>

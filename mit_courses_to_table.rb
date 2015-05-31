@@ -1,5 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
+require 'erb'
+
 page = Nokogiri::HTML(open("http://student.mit.edu/catalog/m16a.html")).to_s
 page.gsub!(/<a name="\d.*$/, "<div class='course'>\n\\0").gsub!(/<!--end-->/, "\\0\n</div>")
 @courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
@@ -13,7 +15,7 @@ def get_title(n)
 end
 
 def get_instructors(n)
-  @courses[n].xpath("i")[-1].text
+  @courses[n].xpath("i")[-1].text unless @courses[n].xpath("i")[-1].nil?
 end
 
 def get_units(n)
@@ -79,3 +81,6 @@ def get_recitation_room(n)
     [two_recitations_match_data[2], two_recitations_match_data[4]]
   end
 end
+
+template = File.read('template.html.erb')
+File.open('table.html', 'w+') { |file| file.write(ERB.new(template).result) }
