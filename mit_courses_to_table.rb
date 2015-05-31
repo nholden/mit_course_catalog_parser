@@ -4,7 +4,11 @@ require 'erb'
 require 'sinatra'
 
 get '/' do
-  page = Nokogiri::HTML(open("http://student.mit.edu/catalog/m16a.html")).to_s
+  erb :index
+end
+
+get '/table' do
+  page = Nokogiri::HTML(open("http://student.mit.edu/catalog/#{params['url']}")).to_s
   page.gsub!(/<a name="\d.*$/, "<div class='course'>\n\\0").gsub!(/<!--end-->/, "\\0\n</div>")
   @courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
  
