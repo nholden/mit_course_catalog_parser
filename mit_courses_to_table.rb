@@ -10,7 +10,28 @@ end
 get '/table' do
   page = Nokogiri::HTML(open("http://student.mit.edu/catalog/#{params['url']}")).to_s
   page.gsub!(/<a name="\d.*$/, "</div>\n<div class='course'>\n\\0")
-  @courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
+  @all_courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
+  @courses = @all_courses.dup
+
+  term = params['term']
+  case term
+  when "fall"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_fall?(index) 
+    end
+  when "spring"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_spring?(index) 
+    end
+  when "iap"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_iap?(index) 
+    end
+  when "summer"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_summer?(index) 
+    end
+  end  
  
   def get_num(n)
     @courses[n].xpath("a")[0].xpath("@name")
@@ -39,7 +60,7 @@ get '/table' do
   end
 
   def is_spring?(n)
-    images = @courses[n].xpath("img//@src").to_s
+    images = @all_courses[n].xpath("img//@src").to_s
     if images.match(/spring.gif/)
       true
     else
@@ -48,7 +69,7 @@ get '/table' do
   end
 
   def is_fall?(n)
-    images = @courses[n].xpath("img//@src").to_s
+    images = @all_courses[n].xpath("img//@src").to_s
     if images.match(/fall.gif/)
       true
     else
@@ -57,7 +78,7 @@ get '/table' do
   end
 
   def is_iap?(n)
-    images = @courses[n].xpath("img//@src").to_s
+    images = @all_courses[n].xpath("img//@src").to_s
     if images.match(/iap.gif/)
       true
     else
@@ -66,7 +87,7 @@ get '/table' do
   end
 
   def is_summer?(n)
-    images = @courses[n].xpath("img//@src").to_s
+    images = @all_courses[n].xpath("img//@src").to_s
     if images.match(/summer.gif/)
       true
     else
