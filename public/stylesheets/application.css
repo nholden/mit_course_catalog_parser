@@ -1,0 +1,22 @@
+body {
+  font-family: "Helvetica", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #A31F34;
+  color: #ffffff;
+  text-align: left;
+  padding: 5px;
+}
+
+tr {
+  border-bottom: 1px solid #C2C0BF;
+}
+
+td {
+  padding: 5px;
+}

@@ -1,24 +1,20 @@
-<html>
-  <body>
-    <table>
-      <tr>
-        <th>Subject</th>
-        <th>Units</th>
-        <th>Level</th>
-        <th>Title</th>
-        <th>Meets</th>
-        <th>Instructors</th>
-      </th>
-      <% @courses.each_with_index do |course, index| %>
-      <tr>
-        <td><%= get_num(index) %></td>
-        <td><%= get_units(index) %></td>
-        <td><%= get_level(index) %></td>
-        <td><%= get_title(index) %></td>
-        <td><%= get_meets(index) %></td>
-        <td><%= get_instructors(index) %></td>
-      </tr>
-      <% end %>
-    </table>
-  </body>
-</html>
+<table>
+  <tr>
+    <th>Subject</th>
+    <th>Units</th>
+    <th>Level</th>
+    <th>Title</th>
+    <th>Meets</th>
+    <th>Instructors</th>
+  </tr>
+  <% @courses.each_with_index do |course, index| %>
+  <tr>
+    <td><%= get_num(index) %></td>
+    <td><%= get_units(index) %></td>
+    <td><%= get_level(index) %></td>
+    <td><%= get_title(index) %></td>
+    <td><%= get_meets(index) %></td>
+    <td><%= get_instructors(index) %></td>
+  </tr>
+  <% end %>
+</table>

@@ -1,22 +1,17 @@
-<html>
-  <body>
-    <center>
-      <h1>Parse MIT course catalog</h1>
-      <form action="table">
-        <label for="url">URL:</label> 
-        http://student.mit.edu/catalog/<input type="text" name="url"><br />
-        <input type="radio" name="term" value="all">
-        <label for="fall">Show all courses</label><br />
-        <input type="radio" name="term" value="fall">
-        <label for="fall">Show fall courses</label><br />
-        <input type="radio" name="term" value="spring">
-        <label for="spring">Show spring courses</label><br />
-        <input type="radio" name="term" value="summer">
-        <label for="summer">Show summer courses</label><br />
-        <input type="radio" name="term" value="iap">
-        <label for="iap">Show IAP courses</label><br /><br />
-        <input type="submit" value="Generate HTML table">
-      </form>
-    </center>
-  </body>
-</html> 
+<center>
+  <h1>MIT Course Catalog Parser</h1>
+  <form action="table">
+    http://student.mit.edu/catalog/<input type="text" name="url"><br /><br />
+    <input type="radio" name="term" value="all">
+    <label for="fall">Show all courses</label><br />
+    <input type="radio" name="term" value="fall">
+    <label for="fall">Show fall courses</label><br />
+    <input type="radio" name="term" value="spring">
+    <label for="spring">Show spring courses</label><br />
+    <input type="radio" name="term" value="summer">
+    <label for="summer">Show summer courses</label><br />
+    <input type="radio" name="term" value="iap">
+    <label for="iap">Show IAP courses</label><br /><br />
+    <input type="submit" value="Generate HTML table" formtarget="_blank">
+  </form>
+</center>
