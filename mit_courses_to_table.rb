@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'erb'
 require 'sinatra'
+require 'pry'
 
 get '/' do
   erb :index
@@ -9,7 +10,8 @@ end
 
 get '/table' do
   page = Nokogiri::HTML(open("http://student.mit.edu/catalog/#{params['url']}")).to_s
-  page.gsub!(/<a name="\d.*$/, "<div class='course'>\n\\0").gsub!(/<!--end-->/, "\\0\n</div>")
+#  page.gsub!(/<a name="\d.*$/, "<div class='course'>\n\\0").gsub!(/<!--end-->/, "\\0\n</div>")
+  page.gsub!(/<a name="\d.*$/, "</div>\n<div class='course'>\n\\0")
   @courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
  
   def get_num(n)
@@ -75,12 +77,12 @@ get '/table' do
   end
 
   def get_lecture_times(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*) \(([\S]*)\)/)
     lecture_match_data[1] unless lecture_match_data.nil?
   end
 
   def get_lecture_room(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*) \(([\S]*)\)/)
     lecture_match_data[2] unless lecture_match_data.nil?
   end 
 
@@ -93,9 +95,9 @@ get '/table' do
   end
 
   def get_lab_times(n)
-    two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    two_labs_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
     if two_labs_match_data.nil?
-      lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+      lab_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\)/)
       [lab_match_data[1]] unless lab_match_data.nil?
     else
       [two_labs_match_data[1], two_labs_match_data[3]]
@@ -103,9 +105,9 @@ get '/table' do
   end
 
   def get_lab_room(n)
-    two_labs_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    two_labs_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
     if two_labs_match_data.nil?
-      lab_match_data = @courses[n].text.match(/Lab: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+      lab_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\)/)
       [lab_match_data[2]] unless lab_match_data.nil?
     else
       [two_labs_match_data[2], two_labs_match_data[4]]
@@ -121,9 +123,9 @@ get '/table' do
   end
 
   def get_recitation_times(n)
-    two_recitations_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    two_recitations_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
     if two_recitations_match_data.nil?
-      recitation_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+      recitation_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\)/)
       [recitation_match_data[1]] unless recitation_match_data.nil?
     else
       [two_recitations_match_data[1], two_recitations_match_data[3]]
@@ -131,9 +133,9 @@ get '/table' do
   end
 
   def get_recitation_room(n)
-    two_recitations_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\) or ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+    two_recitations_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
     if two_recitations_match_data.nil?
-      recitation_match_data = @courses[n].text.match(/Recitation: ([a-zA-Z\d]*) \(([a-zA-Z\d-]*)\)/)
+      recitation_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\)/)
       [recitation_match_data[2]] unless recitation_match_data.nil?
     else
       [two_recitations_match_data[2], two_recitations_match_data[4]]
