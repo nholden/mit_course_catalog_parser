@@ -17,7 +17,7 @@
         <td><%= get_title(index) %></td>
         <td>
           <% if is_lecture?(index) %><p>Lecture: 
-            <%= get_lecture_times(index) %> (<%= get_lecture_room(index) %>)</p>
+            <%= get_lecture(index) %></p>
           <% end %>
           <% if is_lab?(index) %><p>Lab: 
             <% get_lab_times(index).each_with_index do |time, lab_index| %>

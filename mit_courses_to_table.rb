@@ -76,18 +76,13 @@ get '/table' do
     end
   end
 
-  def get_lecture_times(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*) \(([\S]*)\)/)
+  def get_lecture(n)
+    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]* \([\S]*\))/)
     lecture_match_data[1] unless lecture_match_data.nil?
   end
 
-  def get_lecture_room(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*) \(([\S]*)\)/)
-    lecture_match_data[2] unless lecture_match_data.nil?
-  end 
-
   def is_lecture?(n)
-    if get_lecture_times(n).nil? 
+    if get_lecture(n).nil? 
       false
     else
       true
