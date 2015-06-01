@@ -13,26 +13,6 @@ get '/table' do
   @all_courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
   @courses = @all_courses.dup
 
-  term = params['term']
-  case term
-  when "fall"
-    @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_fall?(index) 
-    end
-  when "spring"
-    @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_spring?(index) 
-    end
-  when "iap"
-    @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_iap?(index) 
-    end
-  when "summer"
-    @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_summer?(index) 
-    end
-  end  
- 
   def get_num(n)
     @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z]*) (.*)$/)[1]
   end
@@ -145,5 +125,25 @@ get '/table' do
     meets
   end
 
+  term = params['term']
+  case term
+  when "fall"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_fall?(index) 
+    end
+  when "spring"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_spring?(index) 
+    end
+  when "iap"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_iap?(index) 
+    end
+  when "summer"
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) unless is_summer?(index) 
+    end
+  end  
+ 
   erb :template
 end
