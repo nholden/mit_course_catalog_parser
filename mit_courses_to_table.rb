@@ -34,11 +34,11 @@ get '/table' do
   end  
  
   def get_num(n)
-    @courses[n].xpath("a")[0].xpath("@name")
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z]*) (.*)$/)[1]
   end
 
   def get_title(n)
-    @courses[n].xpath("h3").text.match(/^[\d\.a-zA-Z]* (.*)$/)[1]
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z]*) (.*)$/)[2]
   end
 
   def get_instructors(n)
