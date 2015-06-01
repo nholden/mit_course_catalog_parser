@@ -15,11 +15,7 @@
         <td><%= get_units(index) %></td>
         <td><%= get_level(index) %></td>
         <td><%= get_title(index) %></td>
-        <td>
-          <%= "<p>Lecture: #{get_lecture(index)}</p>\n" if is_lecture?(index) -%>
-          <%= "<p>Lab: #{get_lab(index)}</p>\n" if is_lab?(index) -%>
-          <%= "<p>Recitation: #{get_recitation(index)}</p>\n" if is_recitation?(index) -%>
-        </td>
+        <td><%= get_meets(index) %></td>
         <td><%= get_instructors(index) %></td>
       </tr>
       <% end %>

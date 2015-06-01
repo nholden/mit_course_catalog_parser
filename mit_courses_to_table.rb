@@ -115,5 +115,12 @@ get '/table' do
     end
   end
 
+  def get_meets(n)
+    meets = ""
+    meets += "<p>Lecture: #{get_lecture(n)}</p>" if is_lecture?(n)
+    meets += "<p>Lab: #{get_lab(n)}</p>" if is_lab?(n)
+    meets += "<p>Recitation: #{get_recitation(n)}</p>" if is_recitation?(n)
+  end
+
   erb :template
 end
