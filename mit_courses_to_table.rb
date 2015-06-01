@@ -42,7 +42,10 @@ get '/table' do
   end
 
   def get_instructors(n)
-    @courses[n].xpath("i")[-1].text unless @courses[n].xpath("i")[-1].nil?
+    instructors_xml = @courses[n].xpath("i")[-1]
+    unless instructors_xml.nil?
+      instructors_xml.text if instructors_xml.text.match(/^[A-Z]\./)
+    end
   end
 
   def get_units(n)
