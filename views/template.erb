@@ -6,8 +6,7 @@
     <th>Title</th>
     <th>Meets</th>
     <th>Instructors</th>
-  </tr>
-  <% @courses.each_with_index do |course, index| %>
+  </tr><% @courses.each_with_index do |course, index| %>
   <tr>
     <td><%= get_num(index) %></td>
     <td><%= get_units(index) %></td>
