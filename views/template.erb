@@ -20,10 +20,7 @@
             <%= get_lecture(index) %></p>
           <% end %>
           <% if is_lab?(index) %><p>Lab: 
-            <% get_lab_times(index).each_with_index do |time, lab_index| %>
-              <%= time %> (<%= get_lab_room(index)[lab_index] %>) 
-              <%= "or" unless time == get_lab_times(index)[-1] %>
-            <% end %></p>
+            <%= get_lab(index) %></p>
           <% end %>
           <% if is_recitation?(index) %><p>Recitation: 
             <% get_recitation_times(index).each_with_index do |time, recitation_index| %>

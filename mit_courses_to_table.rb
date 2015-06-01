@@ -89,28 +89,13 @@ get '/table' do
     end
   end
 
-  def get_lab_times(n)
-    two_labs_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
-    if two_labs_match_data.nil?
-      lab_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\)/)
-      [lab_match_data[1]] unless lab_match_data.nil?
-    else
-      [two_labs_match_data[1], two_labs_match_data[3]]
-    end
-  end
-
-  def get_lab_room(n)
-    two_labs_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
-    if two_labs_match_data.nil?
-      lab_match_data = @courses[n].text.match(/Lab: ([\S]*) \(([\S]*)\)/)
-      [lab_match_data[2]] unless lab_match_data.nil?
-    else
-      [two_labs_match_data[2], two_labs_match_data[4]]
-    end
+  def get_lab(n)
+    lab_match_data = @courses[n].text.match(/Lab: (([\S]* \([\S]*\)( or )?)*)/)
+    lab_match_data[1] unless lab_match_data.nil?
   end
 
   def is_lab?(n)
-    if get_lab_times(n).nil? 
+    if get_lab(n).nil? 
       false
     else
       true
