@@ -82,6 +82,15 @@ get '/table' do
     end
   end
 
+  def is_offered?(n)
+    images = @courses[n].xpath("img//@src").to_s
+    if images.match(/nooffer.gif/)
+      false
+    else
+      true
+    end
+  end
+
   def get_lecture(n)
     lecture_match_data = @courses[n].text.match(/Lecture: ([\S]* \([\S]*\))/)
     lecture_match_data[1] unless lecture_match_data.nil?
@@ -122,11 +131,19 @@ get '/table' do
   end
 
   def get_meets(n)
-    meets = ""
-    meets += "<p>Lecture: #{get_lecture(n)}</p>" if is_lecture?(n)
-    meets += "<p>Lab: #{get_lab(n)}</p>" if is_lab?(n)
-    meets += "<p>Recitation: #{get_recitation(n)}</p>" if is_recitation?(n)
-    meets
+    if @courses[n].text.match(/Not offered regularly; consult department/)
+      "Not offered regularly; consult department"
+    elsif @courses[n].text.match(/TBA/)
+      "TBA"
+    elsif !is_offered?(n)
+      "Not offered this academic year"
+    else
+      meets = ""
+      meets += "<p>Lecture: #{get_lecture(n)}</p>" if is_lecture?(n)
+      meets += "<p>Lab: #{get_lab(n)}</p>" if is_lab?(n)
+      meets += "<p>Recitation: #{get_recitation(n)}</p>" if is_recitation?(n)
+      meets
+    end
   end
 
   term = params['term']
