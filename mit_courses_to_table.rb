@@ -30,7 +30,11 @@ get '/table' do
 
   def get_units(n)
     units_match_data = @courses[n].text.match(/^Units: (.*)$/)
-    units_match_data[1] unless units_match_data.nil?
+    if units_match_data.nil?
+      "Arranged" if @courses[n].text.match(/^Units arranged/)
+    else
+      units_match_data[1]
+    end
   end
 
   def get_level(n)
