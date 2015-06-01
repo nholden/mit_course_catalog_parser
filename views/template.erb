@@ -16,18 +16,9 @@
         <td><%= get_level(index) %></td>
         <td><%= get_title(index) %></td>
         <td>
-          <% if is_lecture?(index) %><p>Lecture: 
-            <%= get_lecture(index) %></p>
-          <% end %>
-          <% if is_lab?(index) %><p>Lab: 
-            <%= get_lab(index) %></p>
-          <% end %>
-          <% if is_recitation?(index) %><p>Recitation: 
-            <% get_recitation_times(index).each_with_index do |time, recitation_index| %>
-              <%= time %> (<%= get_recitation_room(index)[recitation_index] %>) 
-              <%= "or" unless time == get_recitation_times(index)[-1] %>
-            <% end %></p>
-          <% end %>
+          <%= "<p>Lecture: #{get_lecture(index)}</p>\n" if is_lecture?(index) -%>
+          <%= "<p>Lab: #{get_lab(index)}</p>\n" if is_lab?(index) -%>
+          <%= "<p>Recitation: #{get_recitation(index)}</p>\n" if is_recitation?(index) -%>
         </td>
         <td><%= get_instructors(index) %></td>
       </tr>

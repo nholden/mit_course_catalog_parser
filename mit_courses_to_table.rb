@@ -102,28 +102,13 @@ get '/table' do
     end
   end
 
-  def get_recitation_times(n)
-    two_recitations_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
-    if two_recitations_match_data.nil?
-      recitation_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\)/)
-      [recitation_match_data[1]] unless recitation_match_data.nil?
-    else
-      [two_recitations_match_data[1], two_recitations_match_data[3]]
-    end
-  end
-
-  def get_recitation_room(n)
-    two_recitations_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\) or ([\S]*) \(([\S]*)\)/)
-    if two_recitations_match_data.nil?
-      recitation_match_data = @courses[n].text.match(/Recitation: ([\S]*) \(([\S]*)\)/)
-      [recitation_match_data[2]] unless recitation_match_data.nil?
-    else
-      [two_recitations_match_data[2], two_recitations_match_data[4]]
-    end
+  def get_recitation(n)
+    recitation_match_data = @courses[n].text.match(/Recitation: (([\S]* \([\S]*\)( or )?)*)/)
+    recitation_match_data[1] unless recitation_match_data.nil?
   end
 
   def is_recitation?(n)
-    if get_recitation_times(n).nil? 
+    if get_recitation(n).nil? 
       false
     else
       true
