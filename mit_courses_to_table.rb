@@ -107,7 +107,7 @@ get '/table' do
   end
 
   def get_lab(n)
-    lab_match_data = @courses[n].text.match(/Lab: (([\S]* \([\S]*\)( or )?)*)/)
+    lab_match_data = @courses[n].text.match(/Lab: (([\S]* \([\S]*( LAB)?\)( or )?)*)/)
     lab_match_data[1] unless lab_match_data.nil?
   end
 
