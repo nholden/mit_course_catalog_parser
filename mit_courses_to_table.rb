@@ -2,15 +2,26 @@ require 'nokogiri'
 require 'open-uri'
 require 'erb'
 require 'sinatra'
+require 'net/http'
 
 get '/' do
   erb :index
 end
 
 get '/table' do
-  page = Nokogiri::HTML(open("http://student.mit.edu/catalog/#{params['url']}")).to_s
-  page.gsub!(/<a name="\d.*$/, "</div>\n<div class='course'>\n\\0")
-  @all_courses = Nokogiri::HTML(page).xpath("//div[@class='course']")
+  @courses_category = "a"
+  @page = ""
+  while Net::HTTP.get_response(URI.parse(
+    "http://student.mit.edu/catalog/m#{params['course']}#{@courses_category}.html"
+    )).code == "200"
+    @page += Nokogiri::HTML(open(
+     "http://student.mit.edu/catalog/m#{params['course']}#{@courses_category}.html"
+     )).to_s
+    @courses_category = @courses_category.next
+  end
+
+  @page.gsub!(/<a name="\d.*$/, "</div>\n<div class='course'>\n\\0")
+  @all_courses = Nokogiri::HTML(@page).xpath("//div[@class='course']")
   @courses = @all_courses.dup
 
   def get_num(n)
