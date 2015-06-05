@@ -20,3 +20,10 @@ tr {
 td {
   padding: 5px;
 }
+
+.config {
+  border-radius: 25px;
+  border: 2px solid #A31F34;
+  padding: 10px;
+  max-width: 500px;
+}
