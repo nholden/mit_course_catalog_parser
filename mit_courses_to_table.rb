@@ -97,7 +97,7 @@ get '/table' do
   end
 
   def get_lecture(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]* \([\S]*\))/)
+    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*( EVE \(4-6 PM\))? \([\S]*\))/)
     lecture_match_data[1] unless lecture_match_data.nil?
   end
 
