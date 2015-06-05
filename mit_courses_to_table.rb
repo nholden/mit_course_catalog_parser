@@ -23,10 +23,13 @@ get '/table' do
 
   def get_instructors(n)
     instructors_xml = @courses[n].xpath("i")[-1]
-    unless instructors_xml.nil?
+    if !instructors_xml.nil?
       return "Staff" if instructors_xml.text.match(/^Staff/)
       return instructors_xml.text if instructors_xml.text.match(/^[A-Z]\./) or 
         instructors_xml.text.match(/^Consult/)
+    else
+      consult = @courses[n].text.match(/^Consult [A-Z]\. ([A-Z]\. )?[A-Z][a-z]*/)
+      return consult[0] unless consult.nil?
     end
   end
 
