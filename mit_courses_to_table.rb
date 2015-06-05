@@ -99,7 +99,7 @@ get '/table' do
   end
 
   def is_offered?(n)
-    images = @courses[n].xpath("img//@src").to_s
+    images = @all_courses[n].xpath("img//@src").to_s
     if images.match(/nooffer.gif/)
       false
     else
@@ -151,7 +151,7 @@ get '/table' do
       "Not offered regularly; consult department"
     elsif @courses[n].text.match(/TBA/)
       "TBA"
-    elsif !is_offered?(n)
+    elsif @courses[n].xpath("img//@src").to_s.match(/nooffer.gif/)
       "Not offered this academic year"
     else
       meets = ""
@@ -162,23 +162,30 @@ get '/table' do
     end
   end
 
-  term = params['term']
-  case term
+  case params['term']
   when "fall"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_fall?(index) 
+      @courses.delete(course) if !is_fall?(index) or 
+        (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   when "spring"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_spring?(index) 
+      @courses.delete(course) unless is_spring?(index) or
+        (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   when "iap"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_iap?(index) 
+      @courses.delete(course) unless is_iap?(index) or
+        (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   when "summer"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_summer?(index) 
+      @courses.delete(course) unless is_summer?(index) or
+        (params['hide_not_offered'] == "1" and !is_offered?(index))
+    end
+  else
+    @all_courses.each_with_index do |course, index|
+      @courses.delete(course) if params['hide_not_offered'] == "1" and !is_offered?(index)
     end
   end  
  

@@ -2,17 +2,17 @@
   <h1>MIT Course Catalog Parser</h1>
   <form action="table">
     <label for="course">Course number:</label>  
-    <input type="text" name="course" id="course"><br /><br />
-    <input type="radio" name="term" value="all" id="all">
-    <label for="all">Show all courses</label><br />
-    <input type="radio" name="term" value="fall" id="fall">
-    <label for="fall">Show fall courses</label><br />
-    <input type="radio" name="term" value="spring" id="spring">
-    <label for="spring">Show spring courses</label><br />
-    <input type="radio" name="term" value="summer" id="summer">
-    <label for="summer">Show summer courses</label><br />
-    <input type="radio" name="term" value="iap" id="iap">
-    <label for="iap">Show IAP courses</label><br /><br />
+    <input type="text" name="course" size="4"><br />
+    <label for="term">Term:</label> 
+    <select name="term">
+      <option value="all">All</option>
+      <option value="fall">Fall</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="iap">IAP</option>
+    </select><br />
+    <input type="checkbox" name="hide_not_offered" value="1"> 
+    <label for="hide_not_offered">Hide courses not offered this year</label><br /><br />
     <input type="submit" value="Generate HTML table" formtarget="_blank">
   </form>
 </center>
