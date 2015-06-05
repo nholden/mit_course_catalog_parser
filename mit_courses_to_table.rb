@@ -170,17 +170,17 @@ get '/table' do
     end
   when "spring"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_spring?(index) or
+      @courses.delete(course) if !is_spring?(index) or
         (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   when "iap"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_iap?(index) or
+      @courses.delete(course) if !is_iap?(index) or
         (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   when "summer"
     @all_courses.each_with_index do |course, index|
-      @courses.delete(course) unless is_summer?(index) or
+      @courses.delete(course) if !is_summer?(index) or
         (params['hide_not_offered'] == "1" and !is_offered?(index))
     end
   else
