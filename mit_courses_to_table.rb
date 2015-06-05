@@ -25,11 +25,11 @@ get '/table' do
   @courses = @all_courses.dup
 
   def get_num(n)
-    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z]*) (.*)$/)[1]
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[1]
   end
 
   def get_title(n)
-    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z]*) (.*)$/)[2]
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[-1]
   end
 
   def get_instructors(n)
@@ -108,7 +108,7 @@ get '/table' do
   end
 
   def get_lecture(n)
-    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*( EVE \(4-6 PM\))? \([\S]*\))/)
+    lecture_match_data = @courses[n].text.match(/Lecture: ([\S]*( EVE \([\d\-]* PM\))? \([\S]*\))/)
     lecture_match_data[1] unless lecture_match_data.nil?
   end
 
@@ -134,7 +134,7 @@ get '/table' do
   end
 
   def get_recitation(n)
-    recitation_match_data = @courses[n].text.match(/Recitation: (([\S]* \([\S]*\)( or )?)*)/)
+    recitation_match_data = @courses[n].text.match(/Recitation: (([\S]* \([\S]*(, [\S]*)*?\)( or )?)*)/)
     recitation_match_data[1] unless recitation_match_data.nil?
   end
 
