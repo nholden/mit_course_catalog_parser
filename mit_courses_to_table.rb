@@ -3,7 +3,6 @@ require 'open-uri'
 require 'erb'
 require 'sinatra'
 require 'net/http'
-require 'pry'
 
 get '/' do
   erb :index
