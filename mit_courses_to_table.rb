@@ -3,6 +3,7 @@ require 'open-uri'
 require 'erb'
 require 'sinatra'
 require 'net/http'
+require 'pry'
 
 get '/' do
   erb :index
@@ -25,11 +26,11 @@ get '/table' do
   @courses = @all_courses.dup
 
   def get_num(n)
-    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[1]
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-\[\]]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[1]
   end
 
   def get_title(n)
-    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[-1]
+    @courses[n].xpath("h3").text.match(/^([\d\.a-zA-Z\-\[\]]*(, [\d\.a-zA-Z\-]*)*?) (.*)$/)[-1]
   end
 
   def get_instructors(n)
