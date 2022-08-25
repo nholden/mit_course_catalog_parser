@@ -5,9 +5,6 @@ Gathering information from the MIT Course Catalog isn't easy. This app generates
 
 ![screenshot of MIT Course Catalog Parser](https://cloud.githubusercontent.com/assets/7942714/8098013/1abe9060-0fb8-11e5-8436-de8df8e63c6a.png)
 
-## Demo
-Try it out for yourself at [http://mitcourses.heroku.com](http://mitcourses.heroku.com)
-
 ## Installation
 
 ```
